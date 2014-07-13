@@ -35,8 +35,22 @@ from runner.koan import *
 
 def score(dice):
     # You need to write this method
-    pass
-
+    score = 0
+    accumulate = {i: 0 for i in xrange(0,10)}
+    for d in dice:
+        accumulate[d] += 1
+    for i in xrange(1, 10):
+        if accumulate[i] >= 3:
+            if i == 1:
+                score = 1000
+            else:
+                score += i * 100
+            accumulate[i] -= 3
+        if i == 1:
+            score += 100 * accumulate[i]
+        if i == 5:
+            score += 50 * accumulate[i]
+    return score
 
 class AboutScoringProject(Koan):
     def test_score_of_an_empty_list_is_zero(self):
